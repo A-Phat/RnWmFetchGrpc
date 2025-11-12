@@ -4,6 +4,7 @@ import './bg/headless'; // 🧠 สำคัญ: ต้อง import ให้ R
 import { registerBackgroundFetch } from './bg/fetch';
 import BackgroundFetch from 'react-native-background-fetch';
 import { insertMockProducts } from './scripts/mockProducts';
+import { database } from './db';
 
 const styles = StyleSheet.create({
   container: {
@@ -12,6 +13,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+database.write(async () => {
+  await database.unsafeResetDatabase() // ⚠️ ใช้เฉพาะ dev
+})
 
 export default function App() {
   useEffect(() => {

@@ -1,6 +1,6 @@
 import NetInfo from '@react-native-community/netinfo'
 import { database } from '../db'
-import { productClient } from '../grpc/client'
+import productClient from '../grpc/client'
 
 export async function syncOrdersOnce() {
   console.log('[syncOrdersOnce] ⏳ Checking network...')

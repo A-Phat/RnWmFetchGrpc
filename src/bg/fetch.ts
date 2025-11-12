@@ -1,6 +1,5 @@
 import BackgroundFetch from 'react-native-background-fetch'
-import { syncOrdersOnce } from '../features/syncOrders'
-import { syncProductsOnce } from '../features/syncProducts'
+import syncProductsOnce from '../features/syncProducts'
 
 export async function registerBackgroundFetch() {
   console.log('\n==============================')
@@ -36,10 +35,6 @@ export async function registerBackgroundFetch() {
       const start = Date.now()
 
       try {
-        console.log('[BackgroundFetch] ⏳ Starting syncOrdersOnce...')
-        await syncOrdersOnce()
-        console.log('[BackgroundFetch] ✅ syncOrdersOnce completed')
-
         console.log('[BackgroundFetch] ⏳ Starting syncProductsOnce...')
         await syncProductsOnce()
         console.log('[BackgroundFetch] ✅ syncProductsOnce completed')

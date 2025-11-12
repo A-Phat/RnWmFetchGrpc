@@ -1,12 +1,12 @@
 import NetInfo from '@react-native-community/netinfo'
 import { database } from '../db'
-import { productClient } from '../grpc/client'
+import productClient from '../grpc/client'
 import Product from '../db/models/Product'
 
 /**
  * Sync local products (pending) to gRPC backend.
  */
-export async function syncProductsOnce() {
+async function syncProductsOnce() {
     console.log('[syncProductsOnce] ⏳ Checking network...')
     const state = await NetInfo.fetch()
     const online = !!state.isConnected && !!state.isInternetReachable
@@ -23,8 +23,9 @@ export async function syncProductsOnce() {
         try {
             // สมมติคุณเพิ่มฟิลด์สถานะไว้ใน schema เช่น 'status' = 'PENDING' | 'SENT'
             if ((row as any).status !== 'PENDING') continue
-
-            await row.update((p: any) => { p.status = 'SENDING' })
+            await database.write(async () => {
+                await row.update((p: any) => { p.status = 'SENDING' })
+            })
 
             const req = {
                 skuid: (row as any).skuid,
@@ -35,14 +36,20 @@ export async function syncProductsOnce() {
 
             const res = await productClient.createProduct(req)
             console.log('[syncProductsOnce] ✅ Sent:', res)
-
-            await row.update((p: any) => { p.status = 'SENT' })
+            await database.write(async () => {
+                await row.update((p: any) => { p.status = 'SENT' })
+            })
         } catch (e: any) {
             console.error('[syncProductsOnce] ❌ Error:', e.message)
-            await row.update((p: any) => {
-                p.status = 'FAILED'
-                p.last_error = String(e?.message ?? e)
+            await database.write(async () => {
+                await row.update((p: any) => {
+                    p.status = 'FAILED'
+                    p.last_error = String(e?.message ?? e)
+                })
             })
+
         }
     }
 }
+
+export default syncProductsOnce;
