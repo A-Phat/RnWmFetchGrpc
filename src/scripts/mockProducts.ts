@@ -7,25 +7,25 @@ export async function insertMockProducts() {
   await database.write(async () => {
     await products.create(p => {
       p.skuid = 'SKU-001'
-      p.barcodePos = '8850000000011'
-      p.productName = 'Coke Zero 325ml'
-      p.merchantId = 'M001'
+      p.barcode_pos = '8850000000011'
+      p.product_name = 'Coke Zero 325ml'
+      p.merchant_id = 'M001'
       p.status = 'PENDING'
     })
 
     await products.create(p => {
       p.skuid = 'SKU-002'
-      p.barcodePos = '8850000000022'
-      p.productName = 'Pepsi Max 325ml'
-      p.merchantId = 'M001'
+      p.barcode_pos = '8850000000022'
+      p.product_name = 'Pepsi Max 325ml'
+      p.merchant_id = 'M001'
       p.status = 'PENDING'
     })
 
     await products.create(p => {
       p.skuid = 'SKU-003'
-      p.barcodePos = '8850000000033'
-      p.productName = 'Sprite 325ml'
-      p.merchantId = 'M002'
+      p.barcode_pos = '8850000000033'
+      p.product_name = 'Sprite 325ml'
+      p.merchant_id = 'M002'
       p.status = 'PENDING'
     })
   })

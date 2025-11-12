@@ -1,7 +1,7 @@
 import BackgroundFetch from 'react-native-background-fetch'
 import syncProductsOnce from '../features/syncProducts'
 
-export async function registerBackgroundFetch() {
+export default async function registerBackgroundFetch() {
   console.log('\n==============================')
   console.log('[BackgroundFetch] 🟦 Initializing background task...')
   console.log('==============================\n')

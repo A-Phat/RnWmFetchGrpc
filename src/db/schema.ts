@@ -20,6 +20,7 @@ export const mySchema = appSchema({
         { name: 'product_name', type: 'string' },
         { name: 'merchant_id', type: 'string', isIndexed: true },
         { name: 'status', type: 'string' },
+        { name: 'created_at', type: 'number' },
       ],
     }),
   ],
