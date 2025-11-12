@@ -1,0 +1,13 @@
+version: v1
+plugins:
+  # ✅ Generate protobuf messages
+  - plugin: es
+    out: .
+    opt:
+      - target=ts
+
+  # ✅ Generate ConnectRPC service definitions
+  - plugin: connect-es
+    out: .
+    opt:
+      - target=ts

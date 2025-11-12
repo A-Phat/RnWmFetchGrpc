@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+option csharp_namespace = "ProductCreate.Api";
+
+package product;
+
+service ProductService {
+  rpc CreateProduct (CreateProductRequest) returns (CreateProductResponse);
+  rpc GetProduct (GetProductRequest) returns (GetProductResponse);
+  rpc GetAllProducts (GetAllProductsRequest) returns (GetAllProductsResponse);
+}
+
+message CreateProductRequest {
+  string skuid = 1;
+  string barcode_pos = 2;
+  string product_name = 3;
+  string merchant_id = 4;
+}
+
+message CreateProductResponse {
+  string skuid = 1;
+  string barcode_pos = 2;
+  string product_name = 3;
+  string merchant_id = 4;
+  bool success = 5;
+  string message = 6;
+}
+
+message GetProductRequest {
+  string skuid = 1;
+}
+
+message GetProductResponse {
+  string skuid = 1;
+  string barcode_pos = 2;
+  string product_name = 3;
+  string merchant_id = 4;
+  bool success = 5;
+  string message = 6;
+}
+
+message GetAllProductsRequest {
+}
+
+message ProductDto {
+  string skuid = 1;
+  string barcode_pos = 2;
+  string product_name = 3;
+  string merchant_id = 4;
+}
+
+message GetAllProductsResponse {
+  repeated ProductDto products = 1;
+  bool success = 2;
+  string message = 3;
+}

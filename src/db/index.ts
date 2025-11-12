@@ -1,0 +1,18 @@
+import { Database } from '@nozbe/watermelondb'
+import SQLiteAdapter from '@nozbe/watermelondb/adapters/sqlite'
+import Order from './models/Order'
+import { mySchema } from './schema'
+import Product from './models/Product'
+
+const adapter = new SQLiteAdapter({
+  schema: mySchema,
+  jsi: true, // ใช้ JSI สำหรับ performance สูงสุด
+  onSetUpError: (error) => {
+    console.error('❌ Database setup error:', error)
+  },
+})
+
+export const database = new Database({
+  adapter,
+  modelClasses: [Order, Product],
+})

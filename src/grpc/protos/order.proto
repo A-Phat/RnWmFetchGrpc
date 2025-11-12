@@ -1,0 +1,17 @@
+syntax = "proto3";
+package order.v1;
+
+message CreateOrderRequest {
+  string id = 1;
+  string product = 2;
+  int32 quantity = 3;
+}
+
+message CreateOrderResponse {
+  string status = 1;
+  string message = 2;
+}
+
+service OrderService {
+  rpc CreateOrder (CreateOrderRequest) returns (CreateOrderResponse);
+}
