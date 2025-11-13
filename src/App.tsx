@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import './bg/headless'; // 🧠 สำคัญ: ต้อง import ให้ RN รู้จัก headless task
-import { registerBackgroundFetch } from './bg/fetch';
+import registerBackgroundFetch from './bg/fetch';
 import BackgroundFetch from 'react-native-background-fetch';
 import { insertMockProducts } from './scripts/mockProducts';
 import { database } from './db';

@@ -1,6 +1,8 @@
 syntax = "proto3";
 
-option csharp_namespace = "ProductCreate.Api";
+option java_multiple_files = true;
+option java_package = "com.rnwmfetchgrpc.grpc";
+option java_outer_classname = "ProductProto";
 
 package product;
 
