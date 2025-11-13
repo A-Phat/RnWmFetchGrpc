@@ -1,5 +1,8 @@
 import BackgroundFetch from 'react-native-background-fetch'
+import { DeviceEventEmitter } from 'react-native'
 import syncProductsOnce from '../features/syncProducts'
+
+export const SYNC_COMPLETED_EVENT = 'SYNC_COMPLETED'
 
 export default async function registerBackgroundFetch() {
   console.log('\n==============================')
@@ -38,8 +41,21 @@ export default async function registerBackgroundFetch() {
         console.log('[BackgroundFetch] ⏳ Starting syncProductsOnce...')
         await syncProductsOnce()
         console.log('[BackgroundFetch] ✅ syncProductsOnce completed')
+        
+        // 🔔 Emit event เพื่อให้ UI refresh ข้อมูล
+        DeviceEventEmitter.emit(SYNC_COMPLETED_EVENT, { 
+          success: true, 
+          timestamp: Date.now() 
+        })
       } catch (err: any) {
         console.error('[BackgroundFetch] ❌ Task error:', err?.message ?? err)
+        
+        // 🔔 Emit event แม้เกิด error (เพื่อให้ UI update)
+        DeviceEventEmitter.emit(SYNC_COMPLETED_EVENT, { 
+          success: false, 
+          error: err?.message ?? err,
+          timestamp: Date.now() 
+        })
       } finally {
         const elapsed = ((Date.now() - start) / 1000).toFixed(2)
         console.log(`[BackgroundFetch] ⏱️ Finished in ${elapsed}s`)
